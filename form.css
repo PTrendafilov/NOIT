@@ -1,0 +1,72 @@
+:root {
+    --main-color: blue;
+    --secondary-color: black;
+    --font-family: "Ariel";
+  }
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(202, 202, 202);
+    font-family: var(--font-family);
+}
+/*Positioning the form in the center*/
+form{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    right: 50%;
+    left:0;
+    right:0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+form{
+    width: 25%;
+    background-color: white;
+    padding: 50px;
+    border-radius: 20px;
+}
+
+.btn-primary{
+    width: 100%;
+    border: none;
+    border-radius: 50px;
+    background-color: var(--main-color);
+}
+
+.form-control{
+    color: rgba(0,0,0,.87);
+    border-bottom-color: rgba(0,0,0,.42);
+    box-shadow: none!important;
+    border:none;
+    border-bottom: 1px solid;
+    border-radius: 4px 4px 0 0;
+}
+
+h4{
+    font-size: 2rem!important;
+    font-weight: 500;
+}
+
+.form-label{
+    font-weight: 500!important;
+}
+@media only screen and (max-width:1200px){
+    form{
+        width: 40%!important;
+    }
+}
+@media only screen and (max-width:600px){
+    form{
+        width: 90%!important;
+    }
+}
