@@ -1,0 +1,10 @@
+body {
+    background-color: blueviolet;
+}
+
+@media(max-width: 991px) {
+    .sidebar {
+        background-color: chocolate;
+        backdrop-filter: blur(10px);
+    }
+}
