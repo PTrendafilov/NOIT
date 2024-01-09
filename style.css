@@ -1,10 +1,15 @@
 body {
     background-color: blueviolet;
 }
-
+.btn-primary{
+    background-color: aqua;
+}
 @media(max-width: 991px) {
     .sidebar {
         background-color: chocolate;
         backdrop-filter: blur(10px);
+    }
+    .nav-link{
+        text-align: center;
     }
 }
