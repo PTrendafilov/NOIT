@@ -1,0 +1,63 @@
+{% load static %}
+    <!-- Login Form  Start-->
+    <div class="overlay" id='login'>
+        <div class="form-container">
+           <span class="closeBtn" onclick="hideLogin()" style="cursor:pointer;">&times;</span>
+           <h2 style='text-align:center;'> Вход </h2>
+           <form enctype="multipart/form-data" class="scrollable-form" onsubmit="return validateLogin(event);" action="/login/" method="POST">
+              {% csrf_token %}
+              <div class="row g-3">
+                 <div class="col-xl-12">
+                    <input name="email-login" type="text" class="form-control bg-light border-0" placeholder="Email" style="height: 55px; margin-top:10px;">
+                 </div>
+                 <div class="col-12">
+                    <input name="password-login" type="password" class="form-control bg-light border-0" placeholder="Парола" style="height: 55px;">
+                 </div>
+                 <div class="col-12">
+                    <input type="submit" value="Вход" class="btn btn-primary py-md-2 px-md-5 me-3" style='width:200px;'>
+                    <button type="button" onclick="hideLogin(); showRegistration();" class="btn  btn-outline-deepblue py-md-2 px-md-5 me-3" style='width:200px;'>Регистрация</button>
+                 </div>
+              </div>
+           </form>
+        </div>
+    </div>
+    <!-- Login Form  End-->
+
+    <!-- Registration Form  Start-->
+    <div class="overlay" id='registration'>
+        <div class="form-container">
+           <span class="closeBtn" onclick="hideRegistration()" style="cursor:pointer;">&times;</span>
+           <h2 style='text-align:center;'> Регистрация </h2>
+           <form enctype="multipart/form-data" class="scrollable-form" id="registrationForm" method='POST'>
+              {% csrf_token %}
+              <div class="row g-3">
+
+                 <div class="col-xl-12">
+                    <input name="name" id='name' type="text" class="form-control bg-light border-0" placeholder="Пълно име" style="height: 55px; margin-top:10px;">
+                 </div>
+                 <div class="col-xl-12">
+                    <input name="email-register" id='email-register' type="text" class="form-control bg-light border-0" placeholder="Еmail" style="height: 55px;">
+                 </div>
+                 <div class="col-12">
+                    <input name="password-register" id='password-register' type="password" class="form-control bg-light border-0" placeholder="Парола" style="height: 55px;">
+                 </div>
+                 <div class="col-12">
+                    <input name="repassword" type="password" class="form-control bg-light border-0" placeholder="Повторете Паролата" style="height: 55px;">
+                 </div>
+                 <div class="col-12">
+                    <select name = 'category' class="form-select bg-light border-0" style="height: 55px;">
+                    <option selected="">Категория</option>
+                    <option value="1">Родител</option>
+                    <option value="0">Дете</option>
+                    </select>
+                </div>
+                 <div class="col-12">
+                    <input type="button" value="Регистрация" class="btn btn-primary py-md-2 px-md-5 me-3" style='width:200px;' onclick="validateAndRegister();">
+                    <button type="button" onclick="hideRegistration();" class="btn  btn-outline-deepblue py-md-2 px-md-5 me-3" style='width:200px;'>Затвори</button>
+                 </div>
+              </div>
+           </form>
+        </div>
+    </div>
+    <!-- Registration Form  End-->
+    <script src="{% static 'js/login.js'%}"></script>

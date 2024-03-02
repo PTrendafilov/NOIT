@@ -1,0 +1,417 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Faculty of Chemistry and Pharmacy, Sofia University</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'images/logo2.png' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Rubik:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link rel="stylesheet" href="{% static 'lib/animate/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+    <style>
+        #rules {
+            margin-top: 120px;
+        }
+
+        .rules-row {
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+
+        #rules p {
+            color: #6c757d;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="container-fluid position-relative p-0">
+        <nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0 sticky-top shadow-sm">
+            <a href="/department" class="navbar-brand p-0">
+                <h1 class="m-0" style="font-size: 30px;"><img src="{% static 'images/logo2.png' %}"> DCPE</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="/department" class="nav-item nav-link">Сайт на персонала</a>
+                    <div class="nav-item dropdown">
+                        <a href="/department/resources.html" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" style='color:#06A3DA;'>Ресурси</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="/department/rules" class="dropdown-item">Правила</a>
+                            <a href="/department/online-tables" class="dropdown-item">Онлайн таблици</a>
+                            <a href="/department/equipment-instructions" class="dropdown-item">Инструкции за работа с оборудването</a>
+                            <a href="{% static 'rules/devices-and-premises.pdf' %}" class="dropdown-item" target="_blank">Отговорници на апарати и помещения</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="staff" class="nav-link dropdown-toggle"
+                            data-bs-toggle="dropdown">Персонал</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="/department/staff#AFM" class="dropdown-item">AFM лаборатория</a>
+                            <a href="/department/staff#CF" class="dropdown-item">CF лаборатория</a>
+                            <a href="/department/staff#Technician" class="dropdown-item">Техници</a>
+                            <a href="/department/staff#Students" class="dropdown-item">Студенти, включени в проекти</a>
+                        </div>
+                    </div>
+                    {% if user.is_authenticated %}
+                        <a class="nav-item nav-link" href='/department/staff/{{ user.first_name }}%20{{ user.last_name }}' style='cursor: pointer;'>Акаунт</a>
+                    {% else %}
+                        <a class="nav-item nav-link" onclick="showLogin()" style='cursor: pointer;'>Вход</a>
+                    {% endif %}
+                    <a href="/bussiness" class="nav-item nav-link">Сайт на бизнеса</a>
+                    <a href="/" class="nav-item nav-link">Сайт на студентите</a>
+                    
+
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
+
+    <!-- Rules Start -->
+    <div class="col-lg-12" id="rules">
+        <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 600px;">
+            <a href="{% static 'rules/rules.pdf' %}" target="_blank">
+                <h1 class="mb-0" style="color:#06A3DA; text-decoration: underline;">Правила на КИХФИ</h1>
+            </a>
+        </div>
+        <div class="row g-5 rules-row">
+            <div class="col-md-4 wow slideInUp" data-wow-delay="0.1s">
+                <a href="{% static 'rules/rules-1.pdf' %}" target="_blank">
+                    <div class="blog-item bg-light rounded overflow-hidden">
+                        <div class="blog-img position-relative overflow-hidden">
+                            <img class="img-fluid" src="{% static 'images/rules.jpg'%}" alt="">
+                        </div>
+                        <div class="p-4">
+                            <div class="d-flex mb-3">
+                                <small><i class="far fa-calendar-alt text-primary me-2"></i>20.09.2021 г.</small>
+                            </div>
+                            <h4 class="mb-3">Основни правила за работа в помещенията на КИХФИ</h4>
+                            <p>Таблица с отговорници по дейности, апарати и помещения. Условия за конфиденциалност и
+                                други.</p>
+                            <a  target="_blank" class="text-uppercase" href="">Прочети правилата <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 wow slideInUp" data-wow-delay="0.1s">
+                <a target="_blank" href="{% static 'rules/rules-2.pdf' %}">
+                    <div class="blog-item bg-light rounded overflow-hidden">
+                        <div class="blog-img position-relative overflow-hidden">
+                            <img class="img-fluid" src="{% static 'images/laboratory equipment.jpg'%}" alt="">
+                        </div>
+                        <div class="p-4">
+                            <div class="d-flex mb-3">
+                                <small><i class="far fa-calendar-alt text-primary me-2"></i>20.09.2021 г.</small>
+                            </div>
+                            <h4 class="mb-3">Правила за използване на апаратура</h4>
+                            <p>Права и задължения на отговорника и ползващите апаратурата. Правила за обучение за
+                                работа
+                                с апарати.
+                            </p>
+                            <a target="_blank" class="text-uppercase" href="{% static 'rules/rules-2.pdf' %}">Прочети правилата <i
+                                    class="bi bi-arrow-right"></i></a>
+                        </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4 wow slideInUp" data-wow-delay="0.1s">
+            <a target="_blank" href="{% static 'rules/rules-3.pdf' %}">
+                <div class="blog-item bg-light rounded overflow-hidden">
+                    <div class="blog-img position-relative overflow-hidden">
+                        <img class="img-fluid" src="{% static 'images/contract.jpg'%}" alt="">
+                    </div>
+                    <div class="p-4">
+                        <div class="d-flex mb-3">
+                            <small><i class="far fa-calendar-alt text-primary me-2"></i>20.09.2021 г.</small>
+                        </div>
+                        <h4 class="mb-3">Приемане на нови студенти на работа в КИХФИ</h4>
+                        <p>Започване и прекратяване на работа в КИХФИ. Описани са всички процеси за стартиране на
+                            работа.
+                        </p>
+                        <a target="_blank" class="text-uppercase" href="{% static 'rules/rules-3.pdf' %}">Прочети правилата <i
+                                class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 wow slideInUp" data-wow-delay="0.1s">
+            <a target="_blank" href="{% static 'rules/rules-4.pdf' %}">
+                <div class="blog-item bg-light rounded overflow-hidden">
+                    <div class="blog-img position-relative overflow-hidden">
+                        <img class="img-fluid" src="{% static 'images/laboratory-prctise.jpg'%}" alt="">
+                    </div>
+                    <div class="p-4">
+                        <div class="d-flex mb-3">
+                            <small><i class="far fa-calendar-alt text-primary me-2"></i>20.09.2021 г.</small>
+                        </div>
+                        <h4 class="mb-3">Правила за добра лабораторна практика</h4>
+                        <p>Указания за работното място, складовете, стъкларията, приготвяне на разтвори и други.</p>
+                        <a target="_blank" class="text-uppercase" href="{% static 'rules/rules-4.pdf' %}">Прочети правилата <i
+                                class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 wow slideInUp" data-wow-delay="0.1s">
+            <a target="_blank" href="{% static 'rules/rules-5.pdf' %}">
+                <div class="blog-item bg-light rounded overflow-hidden">
+                    <div class="blog-img position-relative overflow-hidden">
+                        <img class="img-fluid" src="{% static 'images/payment.jpg'%}" alt="">
+                    </div>
+                    <div class="p-4">
+                        <div class="d-flex mb-3">
+                            <small><i class="far fa-calendar-alt text-primary me-2"></i>20.09.2021 г.</small>
+                        </div>
+                        <h4 class="mb-3">Отчитане на работа и заплащане</h4>
+                        <p>Описание за получаване на заплащане по граждански договор. Документи, които се попълват и
+                            други.
+                        </p>
+                        <a target="_blank" class="text-uppercase" href="{% static 'rules/rules-5.pdf' %}">Прочети правилата <i
+                                class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 wow slideInUp" data-wow-delay="0.1s">
+            <a target="_blank" href="{% static 'rules/rules-6.pdf' %}">
+                <div class="blog-item bg-light rounded overflow-hidden">
+                    <div class="blog-img position-relative overflow-hidden">
+                        <img class="img-fluid" src="{% static 'images/conference.jpg'%}" alt="">
+                    </div>
+                    <div class="p-4">
+                        <div class="d-flex mb-3">
+                            <small><i class="far fa-calendar-alt text-primary me-2"></i>20.09.2021 г.</small>
+                        </div>
+                        <h4 class="mb-3">Международни конференции</h4>
+                        <p>Информация за това как пост-докторантите и докторантите кандидатстват, за да отидат на
+                            конференция. Как се участва в различни школи.</p>
+                        <a target="_blank" class="text-uppercase" href="{% static 'rules/rules-6.pdf' %}">Прочети правилата <i
+                                class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 wow slideInUp" data-wow-delay="0.1s">
+            <a target="_blank" href="{% static 'rules/rules-7.pdf' %}">
+                <div class="blog-item bg-light rounded overflow-hidden">
+                    <div class="blog-img position-relative overflow-hidden">
+                        <img class="img-fluid" src="{% static 'images/sick.jpg'%}" alt="">
+                    </div>
+                    <div class="p-4">
+                        <div class="d-flex mb-3">
+                            <small><i class="far fa-calendar-alt text-primary me-2"></i>20.09.2021 г.</small>
+                        </div>
+                        <h4 class="mb-3">Отпуски и болнични</h4>
+                        <p>Информация за заплащане на болничните, които са съгласно кодекса на труда. Информация за
+                            заявяване на отпуск.</p>
+                        <a target="_blank" class="text-uppercase" href="{% static 'rules/rules-7.pdf' %}">Прочети правилата <i
+                                class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 wow slideInUp" data-wow-delay="0.1s">
+            <a target="_blank" href="/department/online-tables">
+                <div class="blog-item bg-light rounded overflow-hidden">
+                    <div class="blog-img position-relative overflow-hidden">
+                        <img class="img-fluid" src="{% static 'images/list.jpg'%}" alt="">
+                    </div>
+                    <div class="p-4">
+                        <div class="d-flex mb-3">
+                            <small><i class="far fa-calendar-alt text-primary me-2"></i>20.09.2021 г.</small>
+                        </div>
+                        <h4 class="mb-3">Списъци</h4>
+                        <p>Списъци с имейли и номера на членовете на факултета. Има полезни таблици за използването
+                            на
+                            оборудване и други.</p>
+                        <a target="_blank" class="text-uppercase" href="/department/online-tables">Виж таблиците <i
+                                class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 wow slideInUp" data-wow-delay="0.1s">
+            <a target="_blank" href="{% static 'rules/rules-9.pdf' %}">
+                <div class="blog-item bg-light rounded overflow-hidden">
+                    <div class="blog-img position-relative overflow-hidden">
+                        <img class="img-fluid" src="{% static 'images/first-aid.jpg'%}" alt="">
+                    </div>
+                    <div class="p-4">
+                        <div class="d-flex mb-3">
+                            <small><i class="far fa-calendar-alt text-primary me-2"></i>20.09.2021 г.</small>
+                        </div>
+                        <h4 class="mb-3">Аптечка - съдържание</h4>
+                        <p>Детайлно е описано какви лекарствени средства и разтвори съдържа аптечката.</p>
+                        <a  target="_blank" class="text-uppercase" href="{% static 'rules/rules-9.pdf' %}">Прочети правилата <i
+                                class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    </div>
+    <!-- Rules End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light mt-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="row gx-5">
+                <div class="col-lg-4 col-md-6 footer-about">
+                    <div
+                        class="d-flex flex-column align-items-center justify-content-center text-center h-100 bg-primary p-4">
+                        <a href="index.html" class="navbar-brand">
+                            <h1 class="m-0 text-white"><i class="fa fa-flask me-2"></i>DCPE</h1>
+                        </a>
+                        <p class="mt-3 mb-4">Pioneering progress at the intersection of chemical and
+                            pharmaceutical
+                            engineering. Committed to fostering innovation, research, and professional
+                            growth.</p>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-6">
+                    <div class="row gx-5">
+                        <div class="col-lg-4 col-md-12 pt-5 mb-5">
+                            <div class="section-title section-title-sm position-relative pb-3 mb-4">
+                                <h3 class="text-light mb-0">Contact</h3>
+                            </div>
+                            <div class="d-flex mb-2">
+                                <i class="bi bi-geo-alt text-primary me-2"></i>
+                                <p class="mb-0"><a href="https://goo.gl/maps/kgj6bvbXmDwYtUA38"
+                                        style="text-decoration: underline; color: white;" target="_blank">Faculty of
+                                        Chemistry and Pharmacy at the University of Sofia</a></p>
+                            </div>
+                            <div class="d-flex mb-2">
+                                <i class="bi bi-envelope-open text-primary me-2"></i>
+                                <p class="mb-0">lcpe@lcpe.uni-sofia.bg</p>
+                            </div>
+                            <div class="d-flex mb-2">
+                                <i class="bi bi-telephone text-primary me-2"></i>
+                                <p class="mb-0">+359 2 9625643</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-5">
+                            <div class="section-title section-title-sm position-relative pb-3 mb-4">
+                                <h3 class="text-light mb-0">Quick Links</h3>
+                            </div>
+                            <div class="link-animated d-flex flex-column justify-content-start">
+                                <a class="text-light mb-2" href="#"><i
+                                        class="bi bi-arrow-right text-primary me-2"></i>Home</a>
+                                <a class="text-light mb-2" href="#"><i
+                                        class="bi bi-arrow-right text-primary me-2"></i>About Us</a>
+                                <a class="text-light mb-2" href="#"><i
+                                        class="bi bi-arrow-right text-primary me-2"></i>Our Programs</a>
+                                <a class="text-light mb-2" href="#"><i
+                                        class="bi bi-arrow-right text-primary me-2"></i>Meet Our Faculty</a>
+                                <a class="text-light mb-2" href="#"><i
+                                        class="bi bi-arrow-right text-primary me-2"></i>Research
+                                    Opportunities</a>
+                                <a class="text-light" href="#"><i
+                                        class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-5">
+                            <div class="section-title section-title-sm position-relative pb-3 mb-4">
+                                <h3 class="text-light mb-0">Student Resources</h3>
+                            </div>
+                            <div class="link-animated d-flex flex-column justify-content-start">
+                                <a class="text-light mb-2" href="#"><i
+                                        class="bi bi-arrow-right text-primary me-2"></i>Course Catalog</a>
+                                <a class="text-light mb-2" href="#"><i
+                                        class="bi bi-arrow-right text-primary me-2"></i>Academic
+                                    Calendar</a>
+                                <a class="text-light mb-2" href="#"><i
+                                        class="bi bi-arrow-right text-primary me-2"></i>Student Services</a>
+
+                                <a class="text-light" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Career
+                                    Services</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid text-white" style="background: #061429;">
+        <div class="container text-center">
+            <div class="row justify-content-end">
+                <div class="col-lg-8 col-md-6">
+                    <div class="d-flex align-items-center justify-content-center" style="height: 75px;">
+                        <p class="mb-0">&copy; <a class="text-white border-bottom" href="#">DCPE</a>. All
+                            Rights Reserved.
+
+                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                            Designed by <a class="text-white border-bottom" href="https://htmlcodex.com">HTML
+                                Codex</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+        <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+        <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+        <script src="{% static 'lib/counterup/counterup.min.js' %}"></script>
+        <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+        <!-- Template Javascript -->
+        <script src="{% static 'js/main.js' %}"></script>
+        <script>
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 45) {
+                    $('.navbar').addClass('sticky-top shadow-sm');
+                } else {
+                    $('.navbar').addClass('sticky-top shadow-sm');
+                }
+            });
+        </script>
+    <!-- Custom JS-->
+</body>
+
+</html>

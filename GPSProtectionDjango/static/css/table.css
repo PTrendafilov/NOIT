@@ -1,0 +1,79 @@
+#rules {
+    max-width: 90%;
+    margin: auto auto;
+}
+
+#rules {
+    margin-top: 120px;
+}
+
+#rules p {
+    color: #6c757d;
+}
+
+.img-hover-container {
+    position: relative;
+}
+
+
+.img-hover-content {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 3em;
+    opacity: 0;
+    transition: top 0.3s, opacity 0.3s;
+}
+
+.img-hover-content p {
+    font-size: 0.5em;
+
+    margin: 0;
+    color: white !important;
+}
+
+.img-hover-container:hover .img-hover-content {
+    top: 50%;
+    opacity: 1;
+}
+
+.img-hover-container:hover img {
+    filter: brightness(20%);
+    transition: filter 0.3s;
+}
+
+.img-hover-container img {
+    border: 5px solid #06A3DA;
+    border-radius: 50%;
+}
+.btn-delete, .btn-edit {
+    border-radius: 50%; 
+    width: 40px; 
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-delete {
+    background-color: red;
+    color: white;  
+}
+
+.btn-edit {
+    background-color: blue;
+    color: white;
+}
+.btn-delete:hover{
+    color:#06A3DA;
+}
+
+.btn i.fa-lg {
+    font-size: 1.5em;
+}
+
+.btn-edit, .btn-delete {
+    margin: 15px;
+}
