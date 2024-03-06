@@ -19,26 +19,46 @@ function isValidPassword(password) {
   const hasDigit = /\d/.test(password);
   return hasLetter && hasDigit && password.length >= 6;
 }
-function submitSignupData(userData) {
-  fetch('/signup', { // Target the API endpoint
+
+function submitSignupData(userData, navigation) {
+  userData.name = userData.username;
+  userData['email-register'] = userData.email;
+  userData['password-register'] = userData.password;
+  fetch('https://plamennikoleta.pythonanywhere.com/registrate/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
     },
     body: JSON.stringify(userData),
   })
-  .then(response => response.json())
-  .then(data => {
-    console.log('Success:', data);
-    Alert.alert("Success", "Signup successful");
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    } else {
+      return response.json();
+    }
   })
-  .catch((error) => {
+  .then(data => {
+    if (data.success) {
+      console.log('Success:', data);
+      Alert.alert("Success", "Signup successful!");
+      navigation.navigate('Login'); // Send to Login Screen when the user is registered
+    } else if (data.error && data.error === "Email already exists") {
+      console.log('Signup Error:', data.error);
+      Alert.alert("Signup Error", data.error);
+    } else {
+      console.log('Unknown Error:', data);
+      Alert.alert("Error", "An unexpected error occurred. Please try again later.");
+    }
+  })
+  .catch(error => {
     console.error('Error:', error);
-    Alert.alert("Error", "Signup failed! test");
+    Alert.alert("Network Error", "Signup failed! Please check your network connection and try again.");
   });
 }
 
-function SignupScreen() {
+function SignupScreen( {navigation} ) {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -73,7 +93,7 @@ function SignupScreen() {
         confirmPassword: confirmPassword 
       };
 
-      submitSignupData(userData);
+      submitSignupData(userData, navigation);
     } else {
       Alert.alert("Error", "Please correct the errors before submitting.");
     }

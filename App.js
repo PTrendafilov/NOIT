@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './screens/LoginScreen'; // Your LoginScreen component
 import SignupScreen from './screens/SignupScreen'; // Your LoginScreen component
 import { StyleSheet, StatusBar, Text, TextInput, TouchableOpacity, View, ImageBackground } from 'react-native';
-
+import ProfileScreen from './screens/ProfileScreen';
 // Placeholder components for LoginScreen and SignupScreen
 // You'll replace these with your actual screen components once they're created
 
@@ -37,6 +37,11 @@ function App() {
           name="Signup" 
           component={SignupScreen}
           options={{ title: 'Sign Up' }} // You can customize the title here
+        />
+        <Stack.Screen 
+          name="Profile" 
+          component={ProfileScreen}
+          options={{ title: 'Profile' }} // You can customize the title here
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -1,32 +1,76 @@
-import React from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
-import Svg, { SvgUri } from 'react-native-svg';
-const LoginScreen = () => {
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert, Image } from 'react-native';
+
+const LoginScreen = ({ navigation }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = () => {
+    fetch('https://plamennikoleta.pythonanywhere.com/login/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
+    .then(response => {
+      // Check if the response is OK (status code in the range 200-299)
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      // Check the content-type to ensure the response is in JSON format
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new TypeError("Oops, we haven't got JSON!");
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.success) {
+        const userToken = data.token;
+        Alert.alert("Login Success", "You have successfully logged in!");
+        navigation.navigate('Profile', { token: userToken });
+      } else {
+        Alert.alert("Login Failed", data.error || "Invalid login credentials");
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      Alert.alert("Error", error.toString());
+    });
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.welcomeText}>Welcome</Text>
-      
-      <TextInput
-  style={styles.inputField}
-  placeholder="Enter email address"
-  placeholderTextColor="#9e9fa3" // Set placeholder text color to white
-  keyboardType="email-address"
-  textContentType="emailAddress" // only for iOS
-/>
 
-<TextInput
-  style={styles.inputField}
-  placeholder="Enter password"
-  placeholderTextColor="#9e9fa3"
-  secureTextEntry
-  textContentType="password" // only for iOS
-/>
+      <TextInput
+        style={styles.inputField}
+        placeholder="Enter email address"
+        placeholderTextColor="#9e9fa3"
+        keyboardType="email-address"
+        onChangeText={setEmail}
+        value={email}
+      />
+
+      <TextInput
+        style={styles.inputField}
+        placeholder="Enter password"
+        placeholderTextColor="#9e9fa3"
+        secureTextEntry
+        onChangeText={setPassword}
+        value={password}
+      />
       
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => Alert.alert("Forgot Password", "Reset password functionality goes here.")}>
         <Text style={styles.forgotPasswordText}>Forgot password?</Text>
       </TouchableOpacity>
       
-      <TouchableOpacity style={styles.loginButton}>
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginButtonText}>Log in</Text>
       </TouchableOpacity>
       
