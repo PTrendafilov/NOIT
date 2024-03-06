@@ -1,6 +1,6 @@
 
 # NOIT Project
-
+You can access the web version of the project on [GPSProtection](https://plamennikoleta.pythonanywhere.com/)
 ## Installation Guide
 
 Welcome to the NOIT project! Follow these simple steps to get the project up and running on your local machine.
