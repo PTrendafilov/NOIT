@@ -6,35 +6,42 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.core.serializers import serialize
+import json
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render(request, 'index.html')
 
 @csrf_exempt
 def registrate(request):
-    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        name = request.POST.get('name')
-        email = request.POST.get('email-register')
-        password = request.POST.get('password-register')
+    try:
+        if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            data = json.loads(request.body)
+            name = data.get('name')
+            email = data.get('email-register')
+            password = data.get('password-register')
 
-        if User.objects.filter(email=email).exists():
-            return JsonResponse({'success': False, 'error': 'Email already exists'})
+            if User.objects.filter(email=email).exists():
+                return JsonResponse({'success': False, 'error': 'Email already exists'})
 
-        name_parts = name.split(maxsplit=1)
-        first_name, last_name = name_parts if len(name_parts) == 2 else (name, "")
+            name_parts = name.split(maxsplit=1)
+            first_name, last_name = name_parts if len(name_parts) == 2 else (name, "")
 
-        user = User(username=email, email=email, first_name=first_name, last_name=last_name)
-        user.set_password(password)
-        user.save()
+            user = User(username=email, email=email, first_name=first_name, last_name=last_name)
+            user.set_password(password)
+            user.save()
 
-        return JsonResponse({'success': True})
+            return JsonResponse({'success': True})
+        return JsonResponse({'success': False, 'error': 'Invalid request method'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': 'Server Error: {}'.format(str(e))})
 
-    return JsonResponse({'success': False, 'error': 'Invalid request method'})
-
+@csrf_exempt
 def ajax_login(request):
     if request.method == "POST":
-        username = request.POST.get('email')
-        password = request.POST.get('password')
+        data = json.loads(request.body)
+        username = data.get('email')
+        password = data.get('password')
         
         # Debugging
         ''' print("Received email:", username)
@@ -55,6 +62,24 @@ def ajax_login(request):
 
     return JsonResponse({'success': False, 'error': 'Not a POST request'})
 
+@login_required
+def user_profile(request):
+    if request.method == "GET":
+        user = request.user
+        notifications = list(user.notifications.all().values())
+        devices = list(user.devices.all().values())
+
+        user_data = {
+            'first_name': user.first_name,
+            'email': user.email,
+            'notifications': notifications,
+            'devices': devices,
+        }
+
+        return JsonResponse(user_data)
+    else:
+        return JsonResponse({'error': 'Invalid request'}, status=400)
+    
 def profile(request):
     user = request.user
 
