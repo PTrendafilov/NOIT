@@ -15,11 +15,24 @@ def index(request):
 @csrf_exempt
 def registrate(request):
     try:
-        if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            data = json.loads(request.body)
+        if request.method == 'POST':
+            try:
+                # Try to parse JSON data
+                data = json.loads(request.body.decode('utf-8'))
+            except json.JSONDecodeError:
+                # Fallback to form data if JSON parsing fails
+                data = {
+                    'name': request.POST.get('name'),
+                    'email-register': request.POST.get('email-register'),
+                    'password-register': request.POST.get('password-register'),
+                }
+
             name = data.get('name')
             email = data.get('email-register')
             password = data.get('password-register')
+
+            if not (name and email and password):
+                return JsonResponse({'success': False, 'error': 'Missing fields'})
 
             if User.objects.filter(email=email).exists():
                 return JsonResponse({'success': False, 'error': 'Email already exists'})
@@ -32,28 +45,31 @@ def registrate(request):
             user.save()
 
             return JsonResponse({'success': True})
-        return JsonResponse({'success': False, 'error': 'Invalid request method'})
+        else:
+            return JsonResponse({'success': False, 'error': 'Invalid request method'})
     except Exception as e:
         return JsonResponse({'success': False, 'error': 'Server Error: {}'.format(str(e))})
-
+    
 @csrf_exempt
 def ajax_login(request):
     if request.method == "POST":
-        data = json.loads(request.body)
+        try:
+            # Try to parse JSON data
+            data = json.loads(request.body.decode('utf-8'))
+        except json.JSONDecodeError:
+            # Fallback to form data if JSON parsing fails
+            data = {
+                'email': request.POST.get('email'),
+                'password': request.POST.get('password'),
+            }
+
         username = data.get('email')
         password = data.get('password')
-        
-        # Debugging
-        ''' print("Received email:", username)
-        print("Received password:", password)
-        '''
-        user = authenticate(request, username=username, password=password)
-        
-        # Debugging
-        '''
-        print("User object after authenticate:", user)
-        '''
 
+        if not username or not password:
+            return JsonResponse({'success': False, 'error': 'Missing username or password'})
+
+        user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
             return JsonResponse({'success': True})
