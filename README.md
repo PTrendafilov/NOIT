@@ -22,7 +22,7 @@ expo init GPSProtection
 Start by cloning the NOIT project repository to your local machine. Open your terminal, navigate to the directory where you want to clone the repository, and run:
 
 ```
-https://github.com/PTrendafilov/NOIT.git
+git clone https://github.com/PTrendafilov/NOIT.git
 ```
 
 After cloning the repository copy and change all files of the initilized project by those who you cloned.
@@ -36,7 +36,7 @@ After cloning the repository, you need to install the project's dependencies. Th
    Navigate to the main project folder:
 
    ```
-   cd path/to/noit
+   cd path/to/project
    ```
 
    Run the following command to install the dependencies:
