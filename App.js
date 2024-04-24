@@ -5,6 +5,8 @@ import LoginScreen from './screens/LoginScreen'; // Your LoginScreen component
 import SignupScreen from './screens/SignupScreen'; // Your LoginScreen component
 import { StyleSheet, StatusBar, Text, TextInput, TouchableOpacity, View, ImageBackground } from 'react-native';
 import ProfileScreen from './screens/ProfileScreen';
+import LocationScreen from './screens/LocationScreen';
+import SafetyAreaScreen from './screens/SafetyAreaScreen';
 // Placeholder components for LoginScreen and SignupScreen
 // You'll replace these with your actual screen components once they're created
 
@@ -18,9 +20,9 @@ function App() {
         initialRouteName="Home"
         screenOptions={{
           headerStyle: {
-            backgroundColor: '#59189E', // Set the background color of the header
+            backgroundColor: '#59189E',
           },
-          headerTintColor: '#fff', // Set the color of the back button and title
+          headerTintColor: '#fff', 
         }}
       >
         <Stack.Screen
@@ -31,17 +33,22 @@ function App() {
         <Stack.Screen 
           name="Login" 
           component={LoginScreen}
-          options={{ title: 'Login' }} // You can customize the title here
+          options={{ title: 'Login' }} 
         />
         <Stack.Screen 
           name="Signup" 
           component={SignupScreen}
-          options={{ title: 'Sign Up' }} // You can customize the title here
+          options={{ title: 'Sign Up' }}
         />
         <Stack.Screen 
           name="Profile" 
           component={ProfileScreen}
-          options={{ title: 'Profile' }} // You can customize the title here
+          options={{ title: 'Profile' }}
+        />
+        <Stack.Screen 
+          name="Location" 
+          component={LocationScreen}
+          options={{ title: 'Location' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -53,7 +60,7 @@ function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <ImageBackground 
-        source={require('./assets/background1.jpg')} // replace with the path to your image
+        source={require('./assets/background1.jpg')}
         resizeMode='cover'
         style={styles.backgroundImage}
       >
@@ -89,14 +96,14 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    justifyContent: 'space-between', // This will position the header near the top and the buttons at the bottom
+    justifyContent: 'space-between',
   },
   header: {
     width: '100%',
-    height: 200, // You can adjust this as needed
+    height: 200, 
     justifyContent: 'center', // Centers content vertically within header
     alignItems: 'center', // Centers content horizontally within header
-    marginTop: StatusBar.currentHeight || 0, // Add padding to accommodate the status bar height
+    marginTop: StatusBar.currentHeight || 0,
   },
   headerText: {
     color: 'white',
@@ -112,8 +119,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#59189E',
     paddingVertical: 10,
     borderRadius: 30,
-    width: '80%', // Set to 90% of its container width
-    marginBottom: 10, // spacing between buttons
+    width: '80%',
+    marginBottom: 10,
   },
   signupButton: {
     backgroundColor: 'transparent',
@@ -121,7 +128,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderWidth: 1,
     borderColor: '#59189E',
-    width: '80%', // Set to 90% of its container width
+    width: '80%',
   },
   buttonText: {
     color: 'white',
