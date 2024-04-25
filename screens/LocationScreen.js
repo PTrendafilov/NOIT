@@ -18,6 +18,22 @@ const LocationScreen = () => {
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
+
+      // Send location to your Django backend
+      /*fetch('https://plamennikoleta.pythonanywhere.com/api/save_location/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude
+        })
+      })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));*/
     })();
   }, []);
 
