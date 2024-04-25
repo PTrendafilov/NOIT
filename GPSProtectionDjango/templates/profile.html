@@ -321,18 +321,18 @@
                         <div class="col-sm-6 mb-3">
                             <div class="card h-100">
                                 <div class="card-body">
-                                    <h6 class="d-flex align-items-center mb-3"><i class="fa-solid fa-sim-card"></i>&nbsp;&nbsp;Устройства:</h6>
-                                    {% for device in devices %}
+                                    <h6 class="d-flex align-items-center mb-3"><i class="fa-solid fa-sim-card"></i>&nbsp;&nbsp;Местоположение:</h6>
+                                    
                                     <div class="device-item">
                                         <small style="display:flex; justify-content: space-between; align-items: center; font-size:20px; margin-bottom:10px;">
-                                            {{device.name}}
+                                            <a href="/get_location">{{location.latitude}} {{location.longitude}}</a>
                                         </small>
                                     </div>
-                                    {% endfor %}
-                                    <!-- Add Device Button -->
+                                    
+                                    <!-- Add Device Button 
                                     <div class="mt-3">
                                         <a onclick='showDeviceForm()' class="btn btn-primary" id='add-device-btn' style='cursor:pointer;'>Добави устройство</a>
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                         </div>

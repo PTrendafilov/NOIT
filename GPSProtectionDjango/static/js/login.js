@@ -62,21 +62,21 @@ function validateRegistration() {
 }
 
 function registerUser() {
-    let formData = new FormData(document.querySelector('#registrationForm'));
-
+    let formData = {
+        name: document.querySelector("[name='name']").value,
+        'email-register': document.querySelector("[name='email-register']").value,
+        'password-register': document.querySelector("[name='password-register']").value,
+    };
+    console.log(formData)
     fetch('registrate/', {
         method: 'POST',
-        body: formData,
+        body: JSON.stringify(formData),
         headers: {
+            'Content-Type': 'application/json',
             'X-Requested-With': 'XMLHttpRequest'
         }
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
-        }
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
         if (data.success) {
             hideRegistration();
@@ -89,30 +89,31 @@ function registerUser() {
     .catch(error => {
         console.error("There was an error with the registration:", error);
     });
-    
 }
 
-
 function validateLogin(event) {
-    event.preventDefault(); 
+    event.preventDefault();
 
     let email = document.querySelector("input[name='email-login']").value;
     let password = document.querySelector("input[name='password-login']").value;
 
     $.ajax({
         url: '/login/',
-        method: 'POST',
-        data: {
-            csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val(),
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
             email: email,
             password: password,
-        },
+        }),
         success: function(response) {
             if (response.success) {
-                window.location.href = '/profile'; // Redirects user to the profile page
+                window.location.href = '/profile';
             } else {
-                alert(response.error); // Shows an error message if login is unsuccessful
+                alert(response.error);
             }
+        },
+        error: function(xhr, status, error) {
+            console.log(`Error - Status: ${status}, Message: ${error}`);
         }
     });
 }

@@ -13,4 +13,6 @@ urlpatterns = [
     path('logout/', views.logout_view, name="logout"),
     
     path('phone_profile/', views.user_profile, name='user_profile'),
+    path('api/save_location/', views.save_location, name='save_location'),
+    path('get_location/', views.get_location, name='get_location'),
 ]

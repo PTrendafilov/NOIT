@@ -106,7 +106,7 @@ def profile(request):
         print(notification)
 
 
-    return render(request, 'profile.html', {'user':user, 'devices':user.devices.all(), 'notifications':user.notifications.all()})
+    return render(request, 'profile.html', {'user':user, 'location':user.location, 'notifications':user.notifications.all()})
 
 def contacts(request):
     user = request.user
@@ -118,3 +118,31 @@ def contacts(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+
+@csrf_exempt
+def save_location(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            location = Location.objects.create(
+                latitude=data['latitude'],
+                longitude=data['longitude']
+            )
+            location.save()
+            return JsonResponse({'status': 'success', 'message': 'Location saved successfully'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Only POST method allowed'})
+    
+@login_required
+def get_location(request):
+    try:
+        # Assuming the user is authenticated and the location exists
+        location = request.user.location
+    except Location.DoesNotExist:
+        # Handle cases where the location is not set
+        location = None
+
+    return render(request, 'location.html', {'location': location})
